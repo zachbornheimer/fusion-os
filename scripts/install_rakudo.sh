@@ -42,6 +42,7 @@ cd rakudo*
 echo `pwd`
 perl Configure.pl --gen-parrot
 make
+chown -R nobody .
 make install
 mv perl6 /usr/local/bin
 cd ../..
