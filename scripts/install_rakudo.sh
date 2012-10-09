@@ -39,12 +39,10 @@ mkdir .rakudo
 tar -xf .rakudo.tar.gz --directory=.rakudo
 cd .rakudo
 cd rakudo*
-echo `pwd`
-perl Configure.pl --gen-parrot
+perl Configure.pl --gen-parrot --gen-parrot-option=--optimize --gen-nqp --prefix=/usr/local
 make
 chown -R nobody .
 make install
-mv perl6 /usr/local/bin
 cd ../..
 rm -r .rakudo
 logger "Installed Rakudo."
