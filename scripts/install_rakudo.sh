@@ -26,24 +26,13 @@ COPYRIGHT_INFO
 
 PWD=`pwd`
 cd /root
-response=$(curl --write-out %{http_code} --silent --output /dev/null "http://cloud.github.com/downloads/rakudo/star/rakudo-star-`date +%Y`.`date +%m`.tar.gz")
-#response=$(curl -sL -w "%{http_code}" "http://cloud.github.com/downloads/rakudo/star/rakudo-star-`date +%Y`.`date +%m`.tar.gz" -o /dev/null)
-if [ 403 -eq "$response" ]
-then
-    curl -L -z -.rakudo.tar.gz -o .rakudo.tar.gz http://cloud.github.com/downloads/rakudo/star/rakudo-star-`date --date="last month" +%Y`.`date --date="last month" +%m`.tar.gz
-else
-    curl -L -z -.rakudo.tar.gz -o .rakudo.tar.gz http://cloud.github.com/downloads/rakudo/star/rakudo-star-`date +%Y`.`date +%m`.tar.gz
-fi
-
-mkdir .rakudo
-tar -xf .rakudo.tar.gz --directory=.rakudo
-cd .rakudo
+git clone --recursive https://github.com/rakudo/rakudo
 cd rakudo*
 perl Configure.pl --gen-parrot --gen-parrot-option=--optimize --gen-nqp --prefix=/usr/local
 make
 chown -R nobody .
 make install
-cd ../..
-rm -r .rakudo
+cd ../
+rm -r rakudo/
 logger "Installed Rakudo."
 cd $PWD
