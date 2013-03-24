@@ -28,7 +28,7 @@ PWD=`pwd`
 cd /root
 git clone --recursive https://github.com/rakudo/rakudo
 cd rakudo*
-perl Configure.pl --gen-parrot --gen-parrot-option=--optimize --gen-nqp --prefix=/usr/local
+perl Configure.pl --gen-parrot --parrot-option=--optimize --gen-nqp --prefix=/usr/local
 make
 chown -R nobody .
 make install
